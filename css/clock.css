@@ -1,3 +1,7 @@
+:root {
+  --gap: 5px;
+  --elements-width: calc((100% - var(--gap)) / 2);
+}
 * {
   box-sizing: border-box;
   margin: 0;
@@ -22,5 +26,21 @@
 
 .clock__numbers {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  overflow: hidden;
+  position: relative;
+}
+
+.hours__numbers,
+.minutes__numbers,
+.seconds__numbers {
+  flex-basis: var(--elements-width);
+}
+
+.hours__numbersa,
+.minutes__numbersa,
+.seconds__numbersa {
+  position: absolute;
+  top: -100%;
 }

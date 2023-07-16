@@ -32,7 +32,7 @@ function splitDigits(number) {
 
 function createElements(clockEl) {
   const divEl =
-    '<div class="clock__numbers hours"><div class="tens hours__tens"></div><div class="ones hours__ones"></div></div><div class="clock__numbers minutes"><div class="tens minutes__tens"></div><div class="ones minutes__ones"></div></div><div class="clock__numbers seconds"><div class="tens seconds__tens"></div><div class="ones seconds__ones"></div></div>';
+    '<div class="clock__numbers hours"><div class="hours__numbers tens hours__tens"></div><div class="hours__numbers ones hours__ones"></div></div><div class="hours__numbers tens hours__tens"></div><div class="hours__numbers ones hours__ones"></div></div><div class="clock__numbers minutes"><div class="minutes__numbers tens minutes__tens"></div><div class="minutes__numbers ones minutes__ones"></div></div><div class="clock__numbers seconds"><div class="seconds__numbers tens seconds__tens"></div><div class="seconds__numbers ones seconds__ones"></div></div>';
   clockEl.innerHTML = divEl;
   const hoursEl = clockEl.querySelector(".hours");
   const hoursTensEl = hoursEl.firstElementChild;
