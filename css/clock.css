@@ -22,25 +22,42 @@
   display: flex;
   flex-wrap: nowrap;
   gap: 20px;
+  overflow: hidden;
 }
 
-.clock__numbers {
+.hours,
+.minutes,
+.seconds {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.hours__tens,
+.hours__ones,
+.minutes__tens,
+.minutes__ones,
+.seconds__tens,
+.seconds__ones {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--gap);
-  overflow: hidden;
   position: relative;
 }
 
-.hours__numbers,
-.minutes__numbers,
-.seconds__numbers {
-  flex-basis: var(--elements-width);
-}
-
-.hours__numbersa,
-.minutes__numbersa,
-.seconds__numbersa {
+.beforeTens {
   position: absolute;
   top: -100%;
+  left: 0;
+}
+
+.beforeOnes {
+  position: absolute;
+  top: -100%;
+  right: 0;
+}
+
+.move {
+  top: 0;
+  transition-property: top;
+  transition-duration: 500ms;
 }

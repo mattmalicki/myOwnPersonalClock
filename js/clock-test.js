@@ -81,8 +81,8 @@ const hoursBeforeTensEl = document.createElement("div");
 const hoursBeforeOnesEl = document.createElement("div");
 const hoursTensEl = document.createElement("div");
 const hoursOnesEl = document.createElement("div");
-hoursBeforeTensEl.classList.add("hours__numbersa", "hours__beforeTens");
-hoursBeforeOnesEl.classList.add("hours__numbersa", "hours__beforeOnes");
+hoursBeforeTensEl.classList.add("beforeTens", "hours__beforeTens");
+hoursBeforeOnesEl.classList.add("beforeOnes", "hours__beforeOnes");
 hoursTensEl.classList.add("hours__numbers", "hours__tens");
 hoursOnesEl.classList.add("hours__numbers", "hours__ones");
 
@@ -93,8 +93,8 @@ const minutesBeforeTensEl = document.createElement("div");
 const minutesBeforeOnesEl = document.createElement("div");
 const minutesTensEl = document.createElement("div");
 const minutesOnesEl = document.createElement("div");
-minutesBeforeTensEl.classList.add("minutes__numbersa", "minutes__beforeTens");
-minutesBeforeOnesEl.classList.add("minutes__numbersa", "minutes__beforeOnes");
+minutesBeforeTensEl.classList.add("beforeTens", "minutes__beforeTens");
+minutesBeforeOnesEl.classList.add("beforeOnes", "minutes__beforeOnes");
 minutesTensEl.classList.add("minutes__numbers", "minutes__tens");
 minutesOnesEl.classList.add("minutes__numbers", "minutes__ones");
 // seconds
@@ -104,8 +104,8 @@ const secondsBeforeTensEl = document.createElement("div");
 const secondsBeforeOnesEl = document.createElement("div");
 const secondsTensEl = document.createElement("div");
 const secondsOnesEl = document.createElement("div");
-secondsBeforeTensEl.classList.add("seconds__numbersa", "seconds__beforeTens");
-secondsBeforeOnesEl.classList.add("seconds__numbersa", "seconds__beforeOnes");
+secondsBeforeTensEl.classList.add("beforeTens", "seconds__beforeTens");
+secondsBeforeOnesEl.classList.add("beforeOnes", "seconds__beforeOnes");
 secondsTensEl.classList.add("seconds__numbers", "secodns__tens");
 secondsOnesEl.classList.add("seconds__numbers", "seconds__ones");
 // adding elements
@@ -178,7 +178,11 @@ let intervals = setInterval(() => {
   minutesOnesEl.textContent = splitDigits(minutes)[1];
   secondsTensEl.textContent = splitDigits(seconds)[0];
   secondsOnesEl.textContent = splitDigits(seconds)[1];
+  changeDigit("seconds", "ones");
 }, 1000);
+setTimeout(() => {
+  changeDigit("seconds", "tens");
+}, 10000);
 
 function splitDate(date) {
   const dayM = date.getDate();
@@ -198,4 +202,18 @@ function splitDigits(number) {
 
 function addLeadingZero(value) {
   return value < 10 ? value.toString().padStart(2, "0") : value.toString();
+}
+
+function changeDigit(name, digit) {
+  if (name === "seconds") {
+    if (digit === "ones") {
+      secondsBeforeOnesEl.classList.add("moveCenter");
+      secondsOnesEl.classList.add("moveDown");
+      return;
+    } else if (digit === "tens") {
+      secondsBeforeTensEl.classList.add("moveCenter");
+      secondsTensEl.classList.add("moveDown");
+      return;
+    }
+  }
 }

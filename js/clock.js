@@ -1,17 +1,45 @@
 const clockInput = document.querySelector(".clock");
-const clockChildren = createElements(clockInput);
+let keyframes = [
+  { transform: "translateY(0%)" },
+  { transform: "translateY(100%)" },
+];
+
+let animateOptions = {
+  duration: 500,
+};
+
+const classLists = {
+  hBt: [".hours__beforeTens", "beforeTens"],
+  hBo: [".hours__beforeOnes", "beforeOnes"],
+  hT: [".hours__tens", "tens"],
+  hO: [".hours__ones", "ones"],
+  mBt: [".minutes__beforeTens", "beforeTens"],
+  mBo: [".minutes__beforeOnes", "beforeOnes"],
+  mT: [".minutes__tens", "tens"],
+  mO: [".minutes__ones", "ones"],
+  sBt: [".seconds__beforeTens", "beforeTens"],
+  sBo: [".seconds__beforeOnes", "beforeOnes"],
+  sT: [".seconds__tens", "tens"],
+  sO: [".seconds__ones", "ones"],
+};
+createElements();
+
+function createElements() {
+  const clockNames = ["hours", "minutes", "seconds"];
+  clockNames.forEach((element) => {
+    clockInput.innerHTML += `<div class="${element} clock__numbers"><div class="${element}__beforeTens beforeTens"></div><div class="${element}__beforeOnes beforeOnes"></div><div class="${element}__tens tens"></div><div class="${element}__ones ones"></div></div>`;
+  });
+}
 
 let intervals = setInterval(() => {
   const date = splitDate(new Date());
   const hours = addLeadingZero(date.hours);
   const minutes = addLeadingZero(date.minutes);
   const seconds = addLeadingZero(date.seconds);
-  clockChildren.hoursTensEl.textContent = splitDigits(hours)[0];
-  clockChildren.hoursOnesEl.textContent = splitDigits(hours)[1];
-  clockChildren.minutesTensEl.textContent = splitDigits(minutes)[0];
-  clockChildren.minutesOnesEl.textContent = splitDigits(minutes)[1];
-  clockChildren.secondsTensEl.textContent = splitDigits(seconds)[0];
-  clockChildren.secondsOnesEl.textContent = splitDigits(seconds)[1];
+  const hoursSplitted = splitDigits(hours);
+  const minutesSplitted = splitDigits(minutes);
+  const secondsSplitted = splitDigits(seconds);
+  moveSOnes(secondsSplitted);
 }, 1000);
 
 function splitDate(date) {
@@ -30,29 +58,15 @@ function splitDigits(number) {
   return number.toString().split("").map(Number);
 }
 
-function createElements(clockEl) {
-  const divEl =
-    '<div class="clock__numbers hours"><div class="hours__numbers tens hours__tens"></div><div class="hours__numbers ones hours__ones"></div></div><div class="hours__numbers tens hours__tens"></div><div class="hours__numbers ones hours__ones"></div></div><div class="clock__numbers minutes"><div class="minutes__numbers tens minutes__tens"></div><div class="minutes__numbers ones minutes__ones"></div></div><div class="clock__numbers seconds"><div class="seconds__numbers tens seconds__tens"></div><div class="seconds__numbers ones seconds__ones"></div></div>';
-  clockEl.innerHTML = divEl;
-  const hoursEl = clockEl.querySelector(".hours");
-  const hoursTensEl = hoursEl.firstElementChild;
-  const hoursOnesEl = hoursEl.lastElementChild;
-  const minutesEl = clockEl.querySelector(".minutes");
-  const minutesTensEl = minutesEl.firstElementChild;
-  const minutesOnesEl = minutesEl.lastElementChild;
-  const secondsEl = clockEl.querySelector(".seconds");
-  const secondsTensEl = secondsEl.firstElementChild;
-  const secondsOnesEl = secondsEl.lastElementChild;
-  return {
-    hoursTensEl,
-    hoursOnesEl,
-    minutesTensEl,
-    minutesOnesEl,
-    secondsTensEl,
-    secondsOnesEl,
-  };
-}
-
 function addLeadingZero(value) {
   return value < 10 ? value.toString().padStart(2, "0") : value.toString();
+}
+
+function moveSOnes(secondsArray) {
+  const sBeforeO = document.querySelector(".seconds__beforeOnes");
+  const sOnes = document.querySelector(".seconds__ones");
+  sBeforeO.textContent = secondsArray[1] + 1;
+  sOnes.textContent = secondsArray[1];
+  sBeforeO.animate(keyframes, animateOptions);
+  sOnes.animate(keyframes, animateOptions);
 }
